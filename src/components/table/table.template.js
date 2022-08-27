@@ -4,24 +4,36 @@ const CODES = {
     Z: 90
 }
 
-function createCell() {
+function createCell(content, index) {
     return `
-        <div class="cell" contenteditable></div>
+        <div data-index=${index} class="cell" contenteditable></div>
     `
 }
 
-function createColumn(content) {
+function createColumn(content, index) {
     return `
-        <div class="column">
+        <div data-index=${index} class="column" data-type="resizable">
             ${content}
+            <div class="column__resize" data-resize="column"></div>
         </div>
     `
 }
 
+function createRowResize(index) {
+    if (index) {
+        return `<div data-resize="row" class="row-resize"></div>`
+    } else {
+        return "";
+    }
+}
+
 function createRow(content, index) {
     return `
-        <div class="row">
-            <div class="row-info">${index}</div>
+        <div data-type="resizable" class="row">
+            <div class="row-info">
+                ${index}
+                ${createRowResize(index)}
+            </div>
             <div class="row-data">${content}</div>
         </div>
     `
