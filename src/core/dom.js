@@ -16,12 +16,28 @@ class Dom {
         return this;
     }
 
+    get dataset() {
+        return this.element.dataset;
+    }
+
+    findAll(selector) {
+        return this.element.querySelectorAll(selector);
+    }
+
     on(eventType, callback) {
         this.element.addEventListener(eventType, callback);
     }
 
     remove(eventType, callback) {
         this.element.removeEventListener(eventType, callback);
+    }
+
+    closest(selector) {
+        return $(this.element.closest(selector));
+    }
+
+    getCoordinates() {
+       return  this.element.getBoundingClientRect()
     }
 
     append(node) {
@@ -32,6 +48,25 @@ class Dom {
         }
 
         return this;
+    }
+
+    css(styles = {}, selector = null,) {
+
+        let element = selector ? selector : this.element;
+
+        if (Object.keys(styles).length) {
+            for (let key in styles) {
+                let style = styles[key];
+
+                console.log(style);
+
+                if (typeof style == "string" && parseInt(style) && !style.includes("px")) {
+                    element.style[key] = style + "px";
+                } else {
+                    element.style[key] = style;
+                }
+            }
+        }
     }
 }
 
