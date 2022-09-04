@@ -24,6 +24,10 @@ class Dom {
         return this.element.querySelectorAll(selector);
     }
 
+    find(selector) {
+        return $(this.element.querySelector(selector));
+    }
+
     on(eventType, callback) {
         this.element.addEventListener(eventType, callback);
     }
@@ -67,6 +71,45 @@ class Dom {
                 }
             }
         }
+    }
+
+    id(parse) {
+        if (parse) {
+            const parsed = this.id().split(":");
+            return {
+              row: +parsed[0],
+              col: +parsed[1]
+            }
+        }
+        return this.dataset.id;
+    }
+
+    addClass(className) {
+        return this.element.classList.add(className);
+    }
+
+    removeClass(className) {
+        return this.element.classList.remove(className);
+    }
+
+    containClass(className) {
+        return this.element.classList.contains(className);
+    }
+
+    get currentElement() {
+        return this.element;
+    }
+
+    focus() {
+        this.element.focus();
+    }
+
+    get textContent() {
+        return this.element.textContent.trim();
+    }
+
+    textContentSetter(value) {
+        this.element.textContent = value;
     }
 }
 
